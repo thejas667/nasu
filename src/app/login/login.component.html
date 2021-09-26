@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+        <!-- The content half -->
+        <div class="col-md-6 bg-light">
+            <div class="login d-flex align-items-center py-5">
+                <!-- Demo content-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-7 mx-auto">
+                            <h3 class="display-4">Airline Login</h3>
+                            <p class="text-muted mb-4">Please enter credentials</p>
+                            <form *ngIf="!isLoggedIn"
+                            name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #f="ngForm"
+                            novalidate>
+                                <div class="form-group mb-3">
+                                    <input id="username" type="text" placeholder="user name" name="username"
+                                        [(ngModel)]="form.username" required #username="ngModel" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                        <div
+                                        class="alert alert-danger"
+                                        role="alert"
+                                        *ngIf="username.errors && f.submitted"
+                                      >
+                                        Username is required!
+                                      </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input id="password" type="password" placeholder="Password" required name="password" 
+                                        [(ngModel)]="form.password" #password="ngModel" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                        <div
+                                        class="alert alert-danger"
+                                        role="alert"
+                                        *ngIf="password.errors && f.submitted"
+                                      >
+                                        <div *ngIf="password.errors.required">Password is required</div>
+                                        <!-- <div *ngIf="password.errors.minlength">
+                                          Password must be at least 6 characters
+                                        </div> -->
+                                      </div>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <!-- <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                                    <label for="customCheck1" class="custom-control-label">Remember password</label> -->
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
+                                <!-- <button type="submit" class="btn btn-secondary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
+                                    <a href="/register" class="nav-link" routerLink="register">Sign up</a></button> -->
+                                <div class="text-center d-flex justify-content-between mt-4"><p><a href="#" class="font-italic text-muted"> 
+                                        <u></u></a></p></div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- End -->
+            </div>
+        </div><!-- End -->
+    </div>
+  </div>

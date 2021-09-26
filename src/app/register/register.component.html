@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="signup-form">
+                <form
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate>
+                    <h4 class="mb-5 text-secondary">Create Your Account</h4>
+                    <div class="row">
+                        <div class="mb-3 col-md-12">
+                            <label>User Name<span class="text-danger">*</span></label>
+                            <input type="text" name="username" class="form-control"
+                            [(ngModel)]="form.username" required #username="ngModel" autofocus="" placeholder="Enter First Name">
+                        </div>
+
+                        <!-- <div class="mb-3 col-md-6">
+                            <label>Last Name<span class="text-danger">*</span></label>
+                            <input type="text" name="Lname" class="form-control" placeholder="Enter Last Name">
+                        </div> -->
+
+                        <div class="mb-3 col-md-12">
+                            <label>Password<span class="text-danger">*</span></label>
+                            <input type="password" name="password" class="form-control" 
+                            [(ngModel)]="form.password" #password="ngModel" placeholder="Enter Password">
+                        </div>
+                        <div class="mb-3 col-md-12">
+                            <label>Email Id<span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control" 
+                            [(ngModel)]="form.email" #email="ngModel" placeholder="email">
+                        </div>
+                        <div class="col-md-12">
+                           <button type="submit" class="btn btn-primary float-end">Signup Now</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="text-center mt-3 text-secondary">If you have account, Please <a href="#">Login Now</a></p>
+            </div>
+        </div>
+    </div>
+</div>

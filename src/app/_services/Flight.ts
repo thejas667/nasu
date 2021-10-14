@@ -7,14 +7,29 @@ const FLIGHT_NO = null;
   providedIn: 'root'
 })
 export class Flight {
-
-    airline_Id!: number;
-    airline_Name: string;
-    airline_Status: string;
-   constructor(//airline_Id: number,
-         airline_Name: string, airline_Status: string){
-   // this.airline_Id = airline_Id;
-    this.airline_Name = airline_Name;
-    this.airline_Status = airline_Status;
+    id: number;
+    flightCode: string;
+    flightCompanyName: string;
+    flightArriveFrom: string;
+    flightDepartTo: string;
+    scheduledDate: string;
+    timeOfTravel: number;
+    flightStatus: string;
+    flightDistance: string;
+   constructor(){
+   
     }
+
+  public saveFlightCode(flightCode: any):void{
+    window.sessionStorage.removeItem(FLIGHT_NO);
+    window.sessionStorage.setItem(FLIGHT_NO, JSON.stringify(flightCode));
+  }
+
+  public getFlightCode(): any{
+    const flightCode = window.sessionStorage.getItem(FLIGHT_NO);
+    if(flightCode){
+      return JSON.parse(flightCode);
+    }
+  }
+    
 }

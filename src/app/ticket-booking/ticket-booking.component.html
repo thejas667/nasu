@@ -1,0 +1,136 @@
+
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form" style="margin-left: 70px;">
+						<form (ngSubmit)="onSubmit()" id="bookFlight" #bookFlight="ngForm">
+							<div class="form-group">
+								<div class="form-checkbox">
+									<label for="roundtrip">
+										<input type="radio" id="roundtrip" name="flight-type">
+										<span></span>Roundtrip
+									</label>
+									<label for="one-way">
+										<input type="radio" id="one-way" name="flight-type">
+										<span></span>One way
+									</label>
+									<label for="multi-city">
+										<input type="radio" id="multi-city" name="flight-type">
+										<span></span>Multi-City
+									</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Flying from</span>
+										<input class="form-control" 
+										name="from"
+                                        [(ngModel)]="data.frontEnd.from" required #from="ngModel"
+										type="text" placeholder="City or airport">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Flyning to</span>
+										<input class="form-control" type="text" 
+										name="to"
+                                        [(ngModel)]="data.frontEnd.to" required #to="ngModel"
+										placeholder="City or airport">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<span class="form-label">Departing</span>
+										<input class="form-control" type="date" 
+										name="travelDate"
+                                        [(ngModel)]="data.frontEnd.travelDate" required #travelDate="ngModel"
+										required>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<span class="form-label">Returning</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<span class="form-label">Passengers</span>
+										<input class="form-control" type="text" 
+										name="noOfPassengers"
+                                        [(ngModel)]="form.noOfPassengers" required #noOfPassengers="ngModel"
+										required>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<span class="form-label">Meal Type</span>
+										<select class="form-control" name="meal"
+                                        [(ngModel)]="form.meal" required #meal="ngModel">
+											<option>Veg</option>
+											<option>Non Veg</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<span class="form-label">Fare</span>
+										<input class="form-control" type="text" 
+										name="fare"
+                                        [(ngModel)]="data.frontEnd.fare" required #fare="ngModel"
+										required>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-btn">
+										<!-- <button class="submit-btn">Show flights</button> -->
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+
+				<br>
+				<div _ngcontent-gtn-c53="" class="row">
+					<div _ngcontent-gtn-c53="" class="booking-form" style="margin-left: 70px; margin-right: 70px;">
+						<div _ngcontent-gtn-c53="" class="form-group">
+							<h4 class="mb-5 text-secondary">Enter Passenger Details</h4>
+                    <div class="row">
+                        <div class="mb-3 col-md-3">
+                            <label style="background-color: aliceblue;">Name<span class="text-danger">*</span></label>
+                            <input type="text" id="passengername" name="passengername" class="form-control"
+                            [(ngModel)]="form.passengername" required #passengername="ngModel" autofocus="" placeholder="Enter First Name">
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label style="background-color: aliceblue;">Age<span class="text-danger">*</span></label>
+                            <input type="text" id="passengerage" name="passengerage" class="form-control" 
+                            [(ngModel)]="form.passengerage" #passengerage="ngModel" placeholder="Enter age">
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label style="background-color: aliceblue;">Gender<span class="text-danger">*</span></label>
+                            <input type="text" id="gender" name="gender" class="form-control" 
+                            [(ngModel)]="form.gender" #gender="ngModel" placeholder="email">
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-info float-left" (click)="addPassengersToArray(); ">Add passengers</button>
+                           <button type="submit" form="bookFlight" class="btn btn-outline-danger float-right">Book Now</button>
+                        </div>
+                    </div>
+  				</div>
+            </div>
+        </div>
+			</div>
+		</div>
+	</div>
+

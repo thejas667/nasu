@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule }  from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import { jsPDF } from 'jspdf';
+import Html2Canvas from 'html2canvas';
 
 import { RouterModule, Router } from '@angular/router';
 

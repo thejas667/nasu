@@ -3,7 +3,14 @@
 		<div class="section-center">
 			<div class="container">
 				<div class="row">
-					<div class="booking-form">
+					<div class="booking-form" style="margin-left: 90px;">
+						<button type="button" class="btn btn-outline-success" (click)="bookedTicketHistory()">See Booking History</button>
+                        <button type="button" class="btn btn-outline-primary" (click)="searchFlight()">Search Flight</button>
+                        <button type="button" class="btn btn-outline-danger" (click)="cancelTicket()">Cancel Ticket</button>
+					</div>
+				</div>
+				<div class="row" *ngIf="searchFlightFlag">
+					<div class="booking-form" style="margin-left: 90px;">
 						<form (ngSubmit)="onSubmit()" #searchFlight="ngForm">
 							<div class="form-group">
 								<div class="form-checkbox">
@@ -97,8 +104,176 @@
 										<button class="submit-btn">Show flights</button>
 									</div>
 								</div>
+								
 							</div>
 						</form>
+					</div>
+				</div>
+				 
+				<br>
+				<div _ngcontent-gtn-c53="" class="row" *ngIf="flightFetched" style="margin-left: 90px;" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+						<div _ngcontent-gtn-c53="" class="form-group">
+							<table style="margin: 1px solid; padding-top: 10px;">  <!--Don't show nothing if no data-->
+								<tr>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight Code</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight Company</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight From</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight To</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight Scheduled At</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Flight Distance</th>
+									<th style="border: 1px solid black ; background-color: mediumslateblue;">Book</th>
+								</tr>
+								<tr *ngFor="let item of flights" style="border: 1px solid sienna;">
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.flightCode}}</td>
+								   <input class="form-control" type="hidden" id="flightCode"
+										name="flightCode"
+										[(ngModel)]="item.flightCode" required #flightCode="ngModel"
+										required> 
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.flightCompanyName}}</td>
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.flightArriveFrom}}</td>
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.flightDepartTo}}</td>
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.scheduledDate}}</td>
+								   <td style="border: 1px solid sienna; background-color: blueviolet;">{{item.flightDistance}}</td>
+								   <td style="border: 1px solid sienna; background-color: blueviolet;"><button (click)="gotToPage('bookFlight')">book</button></td>
+								</tr>
+								</table>
+  						</div>
+					</div>
+				</div>
+
+				<div class="row" *ngIf="bookedTicketHitoryFlag">
+					<div class="booking-form" style="margin-left: 90px;">
+						<table class="table">
+							<thead class="thead-dark">
+							  <tr>
+								<th scope="col" style="text:white;">#</th>
+								<th scope="col">From</th>
+								<th scope="col">To</th>
+								<th scope="col">PNR</th>
+								<th scope="col">No Of Passengers</th>
+								<th scope="col">Meal</th>
+								<th scope="col">Fare</th>
+								<th scope="col">Date of Flight</th>
+								<th scope="col">Actions</th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr *ngFor="let item1 of tickets; index as i" style="background-color:white;">
+								<th scope="row">{{i+1}}</th>
+								<td>{{item1.flightFrom}}</td>
+								<td>{{item1.flightTo}}</td>
+								<td>{{item1.pnr}}</td>
+								<td>{{item1.noOfSeats}}</td>
+								<td>{{item1.meal}}</td>
+								<td>{{item1.fare}}</td>
+								<td>{{item1.flightDate}}</td>
+								<td><button type="button" class="btn btn-outline-success" (click)="bookedTicketDetails(item1)">Details</button>
+									<button type="button" class="btn btn-outline-info" (click)="downloadTicket(item1)">Download</button></td>
+							  </tr>
+							  
+							</tbody>
+						  </table>
+					</div>
+				</div>
+
+				<div class="row" *ngIf="bookedTicketDetailsFlag" id="exportPDF">
+					<div class="booking-form" style="margin-left: 90px;">
+					<table class="table">
+						<tr style="background-color:white;">
+							<th>Sr No</th><th scope="row">1</th><th>From</th><th scope="row">{{ticket.flightFrom}}</th>
+						</tr>
+						<tr style="background-color:white;">
+							
+						</tr>
+						<tr style="background-color:white;">
+							<th>To</th><th scope="row">{{ticket.flightTo}}</th><th>PNR</th><th scope="row">{{ticket.pnr}}</th>
+						</tr>
+						
+						<tr style="background-color:white;">
+						</tr>	
+						<tr style="background-color:white;">
+							<th> No Of Seat</th><th scope="row">{{ticket.noOfSeats}}</th><th>Meal</th><th scope="row">{{ticket.meal}}</th>
+						</tr>
+						<tr style="background-color:white;">
+							
+						</tr>
+						<tr style="background-color:white;">
+							<th>Fare</th><th scope="row">{{ticket.fare}}</th><th>Flight Date</th><th scope="row">{{ticket.flightDate}}</th>
+						</tr>
+						<tr style="background-color:white;">
+							
+						</tr>
+						<tr>
+							<td>
+								<button type="button" class="btn btn-outline-info" (click)="exportAsPDF('exportPDF')">Download</button></td>
+						</tr>
+					</table>
+					</div>
+				</div>
+				<div class="row" *ngIf="cancelTicketFlag">
+					<div class="booking-form" style="margin-left: 90px;">
+						
+								<form
+									name="form"
+									(ngSubmit)="f.form.valid && onSubmit()"
+									#f="ngForm"
+									novalidate>
+										<h4 class="mb-5 text-secondary">Cancel Ticket</h4>
+										<div class="row">
+											<div class="mb-3 col-md-6">
+												<label style="color: aliceblue;">PNR No<span class="text-danger">*</span></label>
+												<input type="text" name="pnr" class="form-control"
+												[(ngModel)]="form.pnr" required #pnr="ngModel" autofocus="" placeholder="PNR No">
+											</div>
+		
+											<div class="col-md-12">
+											<button type="button" class="btn btn-primary float-end" (click)="getTiketDetails();">Search Ticket</button>
+											</div>
+										</div>
+								</form>
+							<div *ngIf="currentFetchedFlightList">
+									   
+								<form name="form"
+									(ngSubmit)="f.form.valid && onSubmit()"
+									#form="ngForm"
+									novalidate>
+										<h4 class="mb-5 text-secondary"></h4>
+										<div class="row">
+											<table class="table">
+												<thead class="thead-dark">
+												  <tr>
+													<th scope="col" style="text:white;">#</th>
+													<th scope="col">From</th>
+													<th scope="col">To</th>
+													<th scope="col">PNR</th>
+													<th scope="col">No Of Passengers</th>
+													<th scope="col">Meal</th>
+													<th scope="col">Fare</th>
+													<th scope="col">Date of Flight</th>
+													<th scope="col">Actions</th>
+												  </tr>
+												</thead>
+												<tbody>
+												  <tr style="background-color:white;">
+													<th scope="row">1</th>
+													<td>{{ticket.flightFrom}}</td>
+													<td>{{ticket.flightTo}}</td>
+													<td>{{ticket.pnr}}</td>
+													<td>{{ticket.noOfSeats}}</td>
+													<td>{{ticket.meal}}</td>
+													<td>{{ticket.fare}}</td>
+													<td>{{ticket.flightDate}}</td>
+													<td><button type="button" class="btn btn-outline-danger" (click)="cancelTicketSubmit()">Cancel</button>
+														</td>
+												  </tr>
+												  
+												</tbody>
+											  </table>
+										</div>
+								</form>
+								
+							</div>
 					</div>
 				</div>
 			</div>

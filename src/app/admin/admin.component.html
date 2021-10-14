@@ -1,0 +1,360 @@
+
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form" style="margin-left: 90px;">
+						<!-- <button type="button" class="btn btn-outline-primary">Update Flight</button> -->
+                        <!-- <button type="button" class="btn btn-outline-secondary">Secondary</button> -->
+                        <button type="button" class="btn btn-outline-success" (click)="addFlight()">Add Flight</button>
+                        <button type="button" class="btn btn-outline-danger" (click)="cancelFlight()">Cancel Flight</button>
+                        <button type="button" class="btn btn-outline-warning" (click)="editFlight()">Update Flight</button>
+                        <button type="button" class="btn btn-outline-info">Change User</button>
+                         <button type="button" class="btn btn-outline-light" (click)="addDiscount()">Add Discounts</button>
+                        <!--<button type="button" class="btn btn-outline-dark">Dark</button> -->
+					</div>
+				</div>
+
+				<br>
+                <div _ngcontent-gtn-c53="" style="margin-left: 70px; margin-right: 20px;" class="row" *ngIf="flightAdded" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+                        <div _ngcontent-gtn-c53="" class="form-group" *ngIf="flightAdded">
+                            <modal visible="showModal">
+                                Flight added!
+                            </modal>
+                        </div>
+                    </div>
+                </div>
+				<div _ngcontent-gtn-c53="" style="margin-left: 70px; margin-right: 20px;" class="row" *ngIf="addFlightVal" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+                        
+						<div _ngcontent-gtn-c53="" class="form-group">
+                            
+							<form
+                            name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #f="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Add Flight Here</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]="form.flightCode" required #flightCode="ngModel" autofocus="" placeholder="Flight Code">
+                                    </div>
+
+                                    <div class="mb-3 col-md-3">
+                                        <label>Password<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCompanyName" class="form-control" 
+                                        [(ngModel)]="form.flightCompanyName" #flightCompanyName="ngModel" placeholder="Company Name">
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>From<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightArriveFrom" class="form-control" 
+                                        [(ngModel)]="form.flightArriveFrom" #flightArriveFrom="ngModel" placeholder="From">
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>To<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightDepartTo" class="form-control" 
+                                        [(ngModel)]="form.flightDepartTo" #flightDepartTo="ngModel" placeholder="To">
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="date" name="scheduledDate" 
+                                        [(ngModel)]="form.scheduledDate" #scheduledDate="ngModel" placeholder="schedule date">
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="timeOfTravel" 
+                                        [(ngModel)]="form.timeOfTravel" #timeOfTravel="ngModel" placeholder="Travel Time">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <span class="form-label">Status</span>
+                                            <select class="form-control" name="flightStatus"
+                                            [(ngModel)]="form.flightStatus" #flightStatus="ngModel">
+                                                <option>Active</option>
+                                                <option>InActive</option>
+                                                
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary float-end" (click)="addFlightSubmit();">Add Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+  						</div>
+                    </div>
+                </div>
+
+                <div _ngcontent-gtn-c53="" style="margin-left: 70px; margin-right: 20px;" class="row" *ngIf="editFlightVal" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+						<div _ngcontent-gtn-c53="" class="form-group">
+							<form
+                            name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #f="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Update Flight</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]="form.flightCode" required #flightCode="ngModel" autofocus="" placeholder="Flight Code">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary float-end" (click)="getFlightDetailsForEdit();">Search Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div *ngIf="currentFetchedFlightList">
+                               
+                            <form name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #form="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Edit Flight</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]='flight.flightCode' required #flightCode="ngModel" autofocus="" placeholder="Flight Code" />
+                                    </div>
+
+                                    <!-- <div class="mb-3 col-md-6">
+                                        <label>Last Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="Lname" class="form-control" placeholder="Enter Last Name">
+                                    </div> -->
+
+                                    <div class="mb-3 col-md-3">
+                                        <label>Password<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCompanyName" class="form-control" 
+                                        [(ngModel)]="flight.flightCompanyName" required #flightCompanyName="ngModel" placeholder="Company Name" />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>From<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightArriveFrom" class="form-control" 
+                                        [(ngModel)]="flight.flightArriveFrom" required #flightArriveFrom="ngModel" placeholder="From" >
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>To<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightDepartTo" class="form-control" 
+                                        [(ngModel)]='flight.flightDepartTo' #flightDepartTo="ngModel" placeholder="To" >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="date" name="scheduledDate" 
+                                        [(ngModel)]='flight.scheduledDate' #scheduledDate="ngModel" placeholder="schedule date"  >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="timeOfTravel"
+                                        [(ngModel)]='flight.timeOfTravel' #timeOfTravel="ngModel" placeholder="Travel Time" >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <span class="form-label">Status</span>
+                                            <select class="form-control" name="flightStatus"
+                                            [(ngModel)]='flight.flightStatus' #flightStatus="ngModel" >
+                                                <option>Active</option>
+                                                <option>InActive</option>
+                                                
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-outline-warning" (click)="editFlightSubmit();">Update Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+  						</div>
+                    </div>
+                </div>
+
+                <div _ngcontent-gtn-c53="" style="margin-left: 70px; margin-right: 20px;" class="row" *ngIf="cancelFlightVal" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+						<div _ngcontent-gtn-c53="" class="form-group">
+							<form
+                            name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #f="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Cancel Flight</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]="form.flightCode" required #flightCode="ngModel" autofocus="" placeholder="Flight Code">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary float-end" (click)="getFlightDetails();">Search Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div *ngIf="currentFetchedFlightList">
+                                Hi this is it
+                            <form name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #form="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Add Flight Here</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]='flight.flightCode' required #flightCode="ngModel" autofocus="" placeholder="Flight Code" disabled />
+                                    </div>
+
+                                    <!-- <div class="mb-3 col-md-6">
+                                        <label>Last Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="Lname" class="form-control" placeholder="Enter Last Name">
+                                    </div> -->
+
+                                    <div class="mb-3 col-md-3">
+                                        <label>Password<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCompanyName" class="form-control" 
+                                        [(ngModel)]="flight.flightCompanyName" required #flightCompanyName="ngModel" placeholder="Company Name" disabled />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>From<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightArriveFrom" class="form-control" 
+                                        [(ngModel)]="flight.flightArriveFrom" required #flightArriveFrom="ngModel" placeholder="From" disabled >
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>To<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightDepartTo" class="form-control" 
+                                        [(ngModel)]='flight.flightDepartTo' #flightDepartTo="ngModel" placeholder="To" disabled >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="date" name="scheduledDate" 
+                                        [(ngModel)]='flight.scheduledDate' #scheduledDate="ngModel" placeholder="schedule date"  >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="timeOfTravel"
+                                        [(ngModel)]='flight.timeOfTravel' #timeOfTravel="ngModel" placeholder="Travel Time" disabled >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <span class="form-label">Status</span>
+                                            <select class="form-control" name="flightStatus"
+                                            [(ngModel)]='flight.flightStatus' #flightStatus="ngModel" >
+                                                <option>Active</option>
+                                                <option>InActive</option>
+                                                
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-outline-danger" (click)="cancelFlightSubmit();">Cancel Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+  						</div>
+                    </div>
+                </div>
+                <div _ngcontent-gtn-c53="" style="margin-left: 70px; margin-right: 20px;" class="row" *ngIf="addDiscountVal" >
+					<div _ngcontent-gtn-c53="" class="booking-form">
+						<div _ngcontent-gtn-c53="" class="form-group">
+							<form
+                            name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #f="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Add Discount</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]="form.flightCode" required #flightCode="ngModel" autofocus="" placeholder="Flight Code">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary float-end" (click)="getFlightDetailsForDiscount();">Search Flight</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div *ngIf="currentFetchedFlightListForDiscount">
+                               
+                            <form name="form"
+                            (ngSubmit)="f.form.valid && onSubmit()"
+                            #form="ngForm"
+                            novalidate>
+                                <h4 class="mb-5 text-secondary">Add Discount Here</h4>
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label>Flight Code<span class="text-danger">*</span></label>
+                                        
+                                        <input type="text" name="flightCode" class="form-control"
+                                        [(ngModel)]='flight.flightCode' required #flightCode="ngModel" autofocus="" placeholder="Flight Code" disabled />
+                                    </div>
+
+                                    <div class="mb-3 col-md-3">
+                                        <label>Password<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightCompanyName" class="form-control" 
+                                        [(ngModel)]="flight.flightCompanyName" required #flightCompanyName="ngModel" placeholder="Company Name" disabled />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>From<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightArriveFrom" class="form-control" 
+                                        [(ngModel)]="flight.flightArriveFrom" required #flightArriveFrom="ngModel" placeholder="From" disabled >
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label>To<span class="text-danger">*</span></label>
+                                        <input type="text" name="flightDepartTo" class="form-control" 
+                                        [(ngModel)]='flight.flightDepartTo' #flightDepartTo="ngModel" placeholder="To" disabled >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="date" name="scheduledDate" 
+                                        [(ngModel)]='flight.scheduledDate' #scheduledDate="ngModel" placeholder="schedule date"  >
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="timeOfTravel"
+                                        [(ngModel)]='flight.timeOfTravel' #timeOfTravel="ngModel" placeholder="Travel Time" disabled >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <span class="form-label">Status</span>
+                                            <select class="form-control" name="flightStatus"
+                                            [(ngModel)]='flight.flightStatus' #flightStatus="ngModel" disabled>
+                                                <option>Active</option>
+                                                <option>InActive</option>
+                                                
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-3">
+                                        <label>Schedule<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="discount"
+                                        [(ngModel)]='form.discount' #discount="ngModel" placeholder="discount" >
+                                    </div>
+
+                                    <div class="col-md-12">
+                                    <button type="button" class="btn btn-outline-danger" (click)="addDiscountSubmit();">Add Discount</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+  						</div>
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</div>
